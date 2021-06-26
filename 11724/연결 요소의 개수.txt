@@ -1,0 +1,58 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+
+class Graph{
+    int g[][];
+    int N;
+    boolean visited[];
+
+    Graph(int N){
+        g = new int[N+1][N+1];
+        visited = new boolean[N+1];
+        this.N = N;
+    }
+    void insertEdge(int u, int v){
+        g[u][v] = 1;
+        g[v][u] = 1;
+    }
+    boolean DFS(int start){
+        if(visited[start]) {
+            return false;
+        }
+        else {
+
+            visited[start] = true;
+            for(int i = 1 ; i <= N ; i ++) {
+                if(g[start][i] !=0) {
+                    DFS(i);
+                }
+            }
+            return true;
+        }
+    }
+}
+public class Main {
+    public static void main(String args[]) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int count = 0;
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+        Graph g = new Graph(N);
+        for(int i =0 ; i< M ; i++){
+            st = new StringTokenizer(br.readLine());
+            int u = Integer.parseInt(st.nextToken());
+            int v = Integer.parseInt(st.nextToken());
+            g.insertEdge(u,v);
+        }
+        for(int i = 1 ; i <= N ; i ++) {
+            if(g.DFS(i)) count++;
+        }
+
+
+        System.out.print(count);
+    }
+}
