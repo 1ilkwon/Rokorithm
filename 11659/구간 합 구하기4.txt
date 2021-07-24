@@ -1,0 +1,31 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st= new StringTokenizer(br.readLine());
+        StringBuilder sb = new StringBuilder();
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+        int arr[];
+        int i,sum;
+        arr = new int[N+1];
+        st = new StringTokenizer(br.readLine());
+        arr[0] = 0;
+        for(i = 1; i < N+1; i++){
+            arr[i] = arr [i-1] + Integer.parseInt(st.nextToken());
+        }
+        for(i = 0; i< M; i++){ //구간합을 다 더해서 구한다면 시간 초과 발생
+            st = new StringTokenizer(br.readLine());
+            int a = Integer.parseInt(st.nextToken()); //1~3까지라면 0,2  저장
+            int b = Integer.parseInt(st.nextToken());
+            sum = 0;
+            sum = arr[b] - arr[a-1];
+            sb.append(sum).append("\n");
+        }
+        System.out.print(sb);
+    }
+}

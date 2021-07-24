@@ -1,0 +1,82 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+public class Main {
+    static int store[][];
+    static boolean visited[][];
+    static int dx[] = {-1,0,1,0},dy[] = {0,-1,0,1};
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st= new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+        int count = 0, day = 0;
+        store = new int[N][M];
+        visited = new boolean[N][M];
+        Queue<point> q = new LinkedList<>();
+        for(int i = 0; i < M;i++){
+            st = new StringTokenizer(br.readLine());
+            for(int j = 0;j < N; j++){
+                store[j][i] = Integer.parseInt(st.nextToken());
+                if(store[j][i] == 1){
+                    q.add(new point(j,i,store[j][i]));
+                    count++;
+                }
+                else if(store[j][i] == -1){
+                    count++;
+                }
+            }
+        }
+        if(count == N * M){ // 토마토가 모두 익은상태
+            System.out.print(0);
+            return;
+        }
+
+        while(!q.isEmpty()){
+            point cur = q.poll();
+           for(int i = 0; i <4; i++){
+               int curX = cur.x+dx[i];
+               int curY = cur.y+dy[i];
+               if(curX < 0 || curX >= N || curY <0 || curY >= M) continue;
+               if(visited[curX][curY]) continue;
+               if(store[curX][curY] == 0){
+                   q.add(new point(curX,curY,cur.state));
+                   store[curX][curY] = store[cur.x][cur.y] + 1;
+                   visited[curX][curY]= true;
+               }
+           }
+
+        }
+        int max  = -1;
+        for(int i = 0; i < M;i++){
+            for(int j = 0;j < N; j++) {
+                if(store[j][i] == 0){
+                    System.out.print(-1);
+                    return;
+                }
+                if(store[j][i] > max){
+                    max = store[j][i];
+                }
+            }
+        }
+        System.out.print(max-1);
+
+
+
+    }
+    private static class point{
+        int x;
+        int y;
+        int state;
+
+        public point(int x, int y, int state) {
+            this.x = x;
+            this.y = y;
+            this.state = state;
+        }
+    }
+}
