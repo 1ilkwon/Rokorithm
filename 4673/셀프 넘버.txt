@@ -1,0 +1,31 @@
+import java.io.*;
+
+public class Main {
+   public static void main(String[] args) throws IOException {
+       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+       BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+       StringBuilder sb = new StringBuilder();
+       boolean arr[] = new boolean[10001];
+       for(int i = 1; i < 10001; i++){
+           int a = selfNumber(i);
+           if(a < 10001){
+               arr[a] = true;
+           }
+       }
+       for(int i= 1; i<10001; i++){
+           if(!arr[i]) sb.append(i).append("\n");
+       }
+       bw.write(sb.toString());
+       br.close();
+       bw.close();
+   }
+   static int selfNumber(int n){
+       int sum = n;
+       while(true){
+           if(n == 0) break;
+           sum += n%10;
+           n = n/10;
+       }
+       return sum;
+   }
+}
