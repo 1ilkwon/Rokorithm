@@ -1,0 +1,43 @@
+import java.io.*;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        String s = br.readLine();
+        int result = 0;
+        for(int i = 0; i <s.length(); i++){
+            result += solve(s.charAt(i));
+        }
+        bw.write(String.valueOf(result));
+
+        br.close();
+        bw.flush();
+        bw.close();
+    }
+    //A ~ Z , 65 ~ 90
+    static int solve(char s){
+        int code = (int)s;
+        int time = 0;
+        if(code >= 65 && code <= 67){
+           time = 3;
+        } else if (code >= 68 && code <= 70) {
+            time = 4;
+        } else if (code >= 71 && code <= 73) {
+            time = 5;
+        }else if (code >= 74 && code <= 76) {
+            time = 6;
+        }else if (code >= 77 && code <= 79) {
+            time = 7;
+        }else if (code >= 80 && code <= 83) {
+            time = 8;
+        }else if (code >= 84 && code <= 86) {
+            time = 9;
+        }else {
+            time = 10;
+        }
+        return time;
+    }
+
+}
