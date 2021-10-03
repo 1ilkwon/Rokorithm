@@ -1,0 +1,38 @@
+import java.io.*;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st  = new StringTokenizer(br.readLine());
+        StringBuilder sb = new StringBuilder();
+        long n = Long.parseLong(st.nextToken());
+        boolean notOneTwo = true;
+        if(n == 1) {
+            sb.append(1);
+            notOneTwo = false;
+        }
+        else if(n >=2 && n <=7) {
+            sb.append(2);
+            notOneTwo = false;
+        }
+        long r = 6;
+        long a = 8;
+        long count = 3;
+        while(notOneTwo){
+            r = r+6;
+            if(n >= a && n <= a+r-1){
+                sb.append(count);
+                break;
+            }
+            a = a+r;
+            count++;
+        }
+
+        bw.write(sb.toString());
+        bw.flush();
+        bw.close();
+    }
+
+}
